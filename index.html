@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .calculator-container {
+            width: 100%;
+            max-width: 800px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Top Header */
+        .header-top {
+            background: linear-gradient(to bottom, #d60000, #8b0000);
+            color: #ffffff;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 24px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ed1c24;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px 10px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tab-active {
+            background: linear-gradient(to bottom, #4f7495, #22374b);
+            border-right: 1px solid #555;
+        }
+
+        .tab-inactive {
+            background: linear-gradient(to bottom, #4a4a4a, #111111);
+        }
+
+        /* Icon styling */
+        .tab-icon {
+            font-size: 18px;
+            margin-right: 8px;
+            color: #aaa;
+        }
+
+        /* Input Section */
+        .input-section {
+            background-color: #2e2e2e;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 8px 0;
+            border-bottom: 1px solid #444;
+        }
+
+        .input-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .step-col {
+            flex: 0 0 80px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .label-col {
+            flex: 1;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .input-col {
+            flex: 0 0 250px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        select, input[type="number"] {
+            width: 100%;
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #999;
+            font-size: 13px;
+        }
+
+        /* Computation Header */
+        .computation-header {
+            background: linear-gradient(to bottom, #ee1111, #aa0000);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Output Section */
+        .output-section {
+            background-color: #f7f7f7;
+            padding: 15px 20px;
+        }
+
+        .output-row {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to bottom, #ffffff, #eeeeee);
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border: 1px solid #dcdcdc;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,1);
+        }
+
+        .output-label {
+            flex: 1;
+            font-weight: bold;
+            font-size: 13px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+
+        .circle-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(to bottom, #777, #333);
+            border-radius: 50%;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        .circle-icon::after {
+            content: "▶";
+            color: white;
+            font-size: 10px;
+            position: absolute;
+            top: 50%;
+            left: 55%;
+            transform: translate(-50%, -50%);
+        }
+
+        .output-col {
+            flex: 0 0 250px;
+        }
+
+        .output-col input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: #fff;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            text-align: right;
+        }
+
+        /* Footer */
+        .footer-section {
+            padding: 15px 20px;
+            background-color: #fff;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .reset-btn {
+            background: linear-gradient(to bottom, #e70000, #960000);
+            color: white;
+            border: 1px solid #660000;
+            padding: 6px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+        }
+        
+        .reset-btn::before {
+            content: "⟳";
+            margin-right: 5px;
+            font-size: 16px;
+        }
+
+        .finance-bill-text {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .supported-by {
+            text-align: center;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .supported-by a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .supported-by a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator-container">
+    <div class="header-top">
+        TAXMANN'S
+    </div>
+
+    <div class="tabs">
+        <div class="tab tab-active">
+            <span class="tab-icon">📱</span> TAX CALCULATOR
+        </div>
+        <div class="tab tab-inactive">
+            <span class="tab-icon">📱</span> INCOME & TAX CALCULATOR
+        </div>
+    </div>
+
+    <div class="input-section">
+        <div class="input-row">
+            <div class="step-col">Step 1 :</div>
+            <div class="label-col">Assessment Year</div>
+            <div class="input-col">
+                <select id="assessment-year">
+                    <option>2020-21</option>
+                    <option>2021-22</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="input-row">
+            <div class="step-col">Step 2 :</div>
+            <div class="label-col">Tax Payer</div>
+            <div class="input-col">
+                <select id="tax-payer">
+                    <option>Individual</option>
+                    <option>HUF</option>
+                    <option>Company</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="input-row">
+            <div class="step-col">Step 3 :</div>
+            <div class="label-col">Male / Female / Senior Citizen</div>
+            <div class="input-col">
+                <select id="citizen-type">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="senior">Senior Citizen</option>
+                    <option value="super">Super Senior Citizen</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="input-row">
+            <div class="step-col">Step 4 :</div>
+            <div class="label-col">Residential Status</div>
+            <div class="input-col">
+                <select id="res-status">
+                    <option>Resident</option>
+                    <option>Non-Resident</option>
+                    <option>Not Ordinary Resident</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="input-row">
+            <div class="step-col">Step 5 :</div>
+            <div class="label-col">Net Taxable Income</div>
+            <div class="input-col">
+                <input type="number" id="net-income" placeholder="0" oninput="calculateTax()">
+            </div>
+        </div>
+    </div>
+
+    <div class="computation-header">
+        YOUR TAX COMPUTATION
+    </div>
+
+    <div class="output-section">
+        <div class="output-row">
+            <div class="output-label">
+                <span class="circle-icon"></span> Income Tax
+            </div>
+            <div class="output-col">
+                <input type="text" id="income-tax" readonly value="0">
+            </div>
+        </div>
+
+        <div class="output-row">
+            <div class="output-label">
+                <span class="circle-icon"></span> Surcharge
+            </div>
+            <div class="output-col">
+                <input type="text" id="surcharge" readonly value="0">
+            </div>
+        </div>
+
+        <div class="output-row">
+            <div class="output-label">
+                <span class="circle-icon"></span> Health and Education Cess @ 4%
+            </div>
+            <div class="output-col">
+                <input type="text" id="cess" readonly value="0">
+            </div>
+        </div>
+
+        <div class="output-row">
+            <div class="output-label">
+                <span class="circle-icon"></span> Total Tax Liability
+            </div>
+            <div class="output-col">
+                <input type="text" id="total" readonly value="0">
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-section">
+        <div class="footer-top">
+            <button class="reset-btn" onclick="resetForm()">Reset</button>
+            <div class="finance-bill-text">As per Finance (No. 2) Bill, 2019</div>
+        </div>
+        <div class="supported-by">
+            Supported by <a href="#" target="_blank">www.taxmann.com</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculateTax() {
+        let income = parseFloat(document.getElementById('net-income').value) || 0;
+        let citizenType = document.getElementById('citizen-type').value;
+        let tax = 0;
+
+        // Basic Exemption Limit based on age
+        let exemptionLimit = 250000;
+        if (citizenType === 'senior') exemptionLimit = 300000;
+        if (citizenType === 'super') exemptionLimit = 500000;
+
+        if (income > exemptionLimit) {
+            if (income <= 500000) {
+                tax = (income - exemptionLimit) * 0.05;
+            } else if (income <= 1000000) {
+                if (citizenType === 'super') {
+                    tax = (income - 500000) * 0.20;
+                } else if (citizenType === 'senior') {
+                    tax = 10000 + (income - 500000) * 0.20;
+                } else {
+                    tax = 12500 + (income - 500000) * 0.20;
+                }
+            } else {
+                if (citizenType === 'super') {
+                    tax = 100000 + (income - 1000000) * 0.30;
+                } else if (citizenType === 'senior') {
+                    tax = 110000 + (income - 1000000) * 0.30;
+                } else {
+                    tax = 112500 + (income - 1000000) * 0.30;
+                }
+            }
+        }
+
+        // Rebate u/s 87A (Resident Individual up to 5 Lakhs)
+        let isResident = document.getElementById('res-status').value === 'Resident';
+        if (isResident && income <= 500000) {
+            let rebate = Math.min(tax, 12500);
+            tax -= rebate;
+        }
+
+        // Surcharge
+        let surcharge = 0;
+        if (income > 5000000 && income <= 10000000) {
+            surcharge = tax * 0.10;
+        } else if (income > 10000000 && income <= 20000000) {
+            surcharge = tax * 0.15;
+        } else if (income > 20000000 && income <= 50000000) {
+            surcharge = tax * 0.25;
+        } else if (income > 50000000) {
+            surcharge = tax * 0.37;
+        }
+
+        // Marginal Relief logic can be complex, simplifying for this demo
+        
+        let taxPlusSurcharge = tax + surcharge;
+        let cess = taxPlusSurcharge * 0.04;
+
+        let total = taxPlusSurcharge + cess;
+
+        document.getElementById('income-tax').value = tax > 0 ? tax.toFixed(0) : "0";
+        document.getElementById('surcharge').value = surcharge > 0 ? surcharge.toFixed(0) : "0";
+        document.getElementById('cess').value = cess > 0 ? cess.toFixed(0) : "0";
+        document.getElementById('total').value = Math.round(total).toFixed(0);
+    }
+
+    function resetForm() {
+        document.getElementById('assessment-year').selectedIndex = 0;
+        document.getElementById('tax-payer').selectedIndex = 0;
+        document.getElementById('citizen-type').selectedIndex = 0;
+        document.getElementById('res-status').selectedIndex = 0;
+        document.getElementById('net-income').value = "";
+        
+        document.getElementById('income-tax').value = "0";
+        document.getElementById('surcharge').value = "0";
+        document.getElementById('cess').value = "0";
+        document.getElementById('total').value = "0";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Catalogue</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      padding: 30px;
+    }
+    h2 {
+      color: #2c3e50;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 10px;
+      display: inline-block;
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #3498db;
+      color: white;
+      font-weight: bold;
+    }
+    tr:hover {
+      background-color: #f1f2f6;
+    }
+    .price {
+      font-weight: bold;
+      color: #27ae60;
+    }
+    .add-to-cart {
+      background-color: #e67e22;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .add-to-cart:hover {
+      background-color: #d35400;
+    }
+  </style>
+</head>
+<body>
+  <h2>Book Catalogue</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Book Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>The Pragmatic Programmer</td>
+        <td>Andrew Hunt</td>
+        <td>Technology</td>
+        <td class="price">$42.00</td>
+        <td><button class="add-to-cart">Add to Cart</button></td>
+      </tr>
+      <tr>
+        <td>Clean Code</td>
+        <td>Robert C. Martin</td>
+        <td>Technology</td>
+        <td class="price">$38.50</td>
+        <td><button class="add-to-cart">Add to Cart</button></td>
+      </tr>
+      <tr>
+        <td>Dune</td>
+        <td>Frank Herbert</td>
+        <td>Science Fiction</td>
+        <td class="price">$15.99</td>
+        <td><button class="add-to-cart">Add to Cart</button></td>
+      </tr>
+      <tr>
+        <td>To Kill a Mockingbird</td>
+        <td>Harper Lee</td>
+        <td>Classic Literature</td>
+        <td class="price">$12.50</td>
+        <td><button class="add-to-cart">Add to Cart</button></td>
+      </tr>
+      <tr>
+        <td>The Hobbit</td>
+        <td>J.R.R. Tolkien</td>
+        <td>Fantasy</td>
+        <td class="price">$14.25</td>
+        <td><button class="add-to-cart">Add to Cart</button></td>
+      </tr>
+      <tr>
+        <td>Thinking, Fast and Slow</td>
+        <td>Daniel Kahneman</td>
+        <td>Psychology</td>
+        <td class="price">$20.00</td>
+        <td><button class="add-to-cart">Add to Cart</button></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
